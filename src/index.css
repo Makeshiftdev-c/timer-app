@@ -1,0 +1,259 @@
+#main {
+  margin-top: 6em;
+}
+
+#content {
+  margin-top: 3em;
+}
+
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+html {
+  height: 100%;
+  overflow-x: hidden;
+  overflow-y: hidden;
+  max-width: 7000px;
+  margin: 0 auto;
+  scroll-behavior: smooth;
+}
+body {
+  /*width: 100%;*/
+  overflow-x: hidden;
+  background-color: gray;
+  background-image: url(./back.webp);
+  background-repeat: no-repeat;
+  background-size: 100% 100%;
+  background-position: center center;
+  background-attachment: fixed;
+}
+a, button {
+  -webkit-tap-highlight-color: transparent;
+}
+
+/* Header Bar */
+header {
+  box-shadow: 0px 0px 10px black !important;
+  width: 100%;
+  display: flex;
+  justify-content: space-around;
+  align-items: center;
+  max-height: 82px;
+  background-color: rgba(36, 39, 35, 0.774);
+  font-family: 'Cinzel', serif;
+}
+.main-head {
+  width: 100vw;
+  min-height: 82px;
+  max-width: 1366px;
+  padding-top: 0;
+  margin: 0 auto;
+  display: flex;
+  justify-content: space-around;
+  align-items: center;
+}
+
+.logoandbanner {
+  display: flex;
+  justify-content: space-around;
+  align-items: center;
+  width:35%;
+  color: rgba(228, 238, 228, 0.774);
+  margin-left: 20px;
+}
+
+.logoandbanner h1 {
+  margin: 0;
+  margin-left: 10px !important;
+  padding: 0;
+  font-family: 'Cinzel', serif !important;
+  font-size: 2.29em !important;
+  line-height: 1.15;
+}
+
+.logoandbanner img {
+  background-color:  rgba(27, 29, 27, 0.4);
+  border-radius: 20px;
+  border-bottom-left-radius: 50%;
+  border-bottom-right-radius: 50%;
+  margin-left: 20px;
+  border: 2px solid rgba(228, 238, 228, 0.774);
+  box-shadow: 0px -1px 5px rgba(228, 238, 228, 0.7);
+  min-height: 82px;
+  min-width: 82px;
+}
+
+.nav-links {
+  display: flex;
+  justify-content: space-around;
+  width: 35%;
+}
+
+.nav-links li {
+  list-style: none;
+}
+
+.nav-links a {
+  color: rgba(228, 238, 228, 0.774);
+  font-weight: bold;
+  text-decoration: none;
+  letter-spacing: 2px;
+  font-size: 16px;
+}
+.nav-links a:hover {
+  border-bottom: 3px solid grey;
+}
+.current {
+  border-bottom: 3px solid goldenrod;
+}
+.burger {
+  display: none;
+  width: 0%;
+}
+.burger div{
+  width: 25px;
+  height: 3px;
+  background-color: rgba(228, 238, 228, 0.774);
+  margin: 5px;
+  border-radius: 5px;
+  transition: all 0.3s ease;
+}
+/* Start of Simple Breakpoint for Phones and Small Tablets */
+@media screen and (max-width: 768px) {
+  body {
+      background-image: url(./back.jpg);
+      background-repeat: no-repeat;
+      background-size: 100% 100%;
+      background-position: center center;
+      background-attachment: fixed;
+  }
+  html {
+      overflow: hidden !important;
+      height: 100% !important;
+      overscroll-behavior: none;
+  }
+  body {
+      width: 100%;
+      position: absolute;
+      bottom: 0;
+      left: 0;
+      right: 0;
+      top: 0;
+      width: 100%;
+      overflow-x: hidden;
+      overflow-y: scroll;
+      scroll-behavior: smooth;
+      overscroll-behavior: none;
+      -webkit-overflow-scrolling: touch !important;
+  }
+  .nav-links {
+      position: absolute;
+      right: 0px;
+      height: calc(100% - 82px);
+      top: 82px;
+      background-color: rgba(36, 39, 35, 0.774);
+      scroll-behavior: smooth;
+      display: flex;
+      border-bottom-left-radius: 20px;
+      flex-direction: column;
+      align-items: center;
+      opacity: 0;
+      transform: translateY(-50%) scaleY(0);
+      transition: transform 0.5s ease;
+  }
+  .nav-links li {
+      opacity: 0;
+  }
+  .burger {
+      display: block;
+      cursor: pointer;
+  }
+  .main {
+    width: 100%;
+    margin-left: 0px;
+    margin-right: 0px;
+  }
+  .content {
+    width: 100%;
+  }
+  div.column {
+    width: 100% !important;
+  }
+}
+/* End of Breakpoint for Handheld Devices */
+/* Start of Dropdown Menu Effect (Elements effect apply to set to 0 opacity) */
+.nav-active {
+  opacity: 1;
+  transform: translateY(0%) scaleY(1);
+  z-index: 1;
+}
+
+
+@keyframes linkFade {
+  from {
+      opacity: 0;
+      transform: translateX(50px);
+  }
+  to {
+      opacity: 1;
+      transform: translateX(0px);
+  }
+}
+/* End of Dropdown Menu Effect (see also burger.js) */
+/* Start of Burger Animation */
+.toggle .line-1 {
+  transform: rotate(-45deg) translate(-5px,6px);
+}
+.toggle .line-2 {
+  opacity: 0;
+}
+.toggle .line-3 {
+  transform: rotate(45deg) translate(-5px, -6px);
+}
+/* End of Burger Animation */
+/* End of Header Bar */
+
+/* Start Of Time Keeping App Format Overides */
+#main {
+  margin-top: 20px;
+}
+.column {
+  margin: 0 auto !important;
+}
+.card {
+  background-color: rgba(36, 39, 35, 0.9) !important;
+  box-shadow: 0px 0px 10px black !important;
+  color: goldenrod;
+}
+.segment .ui.basic.button {
+  background-color: rgba(36, 39, 35, 0.774) !important;
+  box-shadow: 0px 0px 10px goldenrod !important;
+  border-radius: 10px;
+}
+.ui.basic.yellow.button:hover {
+  background-color: rgba(36, 39, 35, 0.774) !important;
+  box-shadow: 0px 0px 10px yellow !important;
+}
+.ui.card > .content > .header,
+.ui.card > .content > .meta,
+.ui.card > .content > .description {
+  color: white !important;
+}
+.ui.form .field > label {
+  color: white !important;
+}
+/*#main {
+  text-align: center;
+  margin-bottom: 0;
+}*/
+#main-h1 {
+  font-family: 'Cinzel', serif;
+  text-shadow: 0px 0px 5px goldenrod;
+}
+
+.floated .icon {
+  cursor: pointer;
+}
+/* End Of Simple Overides */

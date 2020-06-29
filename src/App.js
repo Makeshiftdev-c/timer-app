@@ -8,10 +8,12 @@ class TimersDashboard extends React.Component {
         timers: [
             {
                 title: "Timer",
-                project: "",
+                project: "Project",
                 id: uuid.v4(),
                 elapsed: 0,
                 runningSince: null,
+                position: 0,
+                numberOfTimers: 0,
             },
         ],
     };
@@ -21,8 +23,8 @@ class TimersDashboard extends React.Component {
     handleEditFormSubmit = (attrs) => {
         this.updateTimer(attrs);
     };
-    handleTrashClick = (timerId) => {
-        this.deleteTimer(timerId);
+    handleTrashClick = (timerId, timerPosition) => {
+        this.deleteTimer(timerId, timerPosition);
     };
     handleStartClick = (timerId) => {
         this.startTimer(timerId);
@@ -30,10 +32,22 @@ class TimersDashboard extends React.Component {
     handleStopClick = (timerId) => {
         this.stopTimer(timerId);
     };
+    handleUpClick = (timerId, timerPosition) => {
+        this.moveTimerUp(timerId, timerPosition);
+    };
+    handleDownClick = (timerId, timerPosition) => {
+        this.moveTimerDown(timerId, timerPosition);
+    };
     createTimer = (timer) => {
         const t = helpers.newTimer(timer);
+        t.position = this.state.timers.length;
+        t.numberOfTimers = 0;
         this.setState({
-            timers: this.state.timers.concat(t),
+            timers: this.state.timers.concat(t).map((timer) => {
+                return Object.assign({}, timer, {
+                    numberOfTimers: this.state.timers.length,
+                });
+            }),
         });
     };
     updateTimer = (attrs) => {
@@ -51,9 +65,23 @@ class TimersDashboard extends React.Component {
             }),
         });
     };
-    deleteTimer = (timerId) => {
+    deleteTimer = (timerId, timerPosition) => {
         this.setState({
-            timers: this.state.timers.filter(t => t.id !== timerId),
+            timers: this.state.timers.map((timer) => {
+                if (timer.position >= timerPosition) {
+                    console.log(this.state.timers.length);
+                        return Object.assign({}, timer, {
+                        position: timer.position - 1,
+                    });
+                }
+                else {
+                    return timer;
+                }
+            }).filter(t => t.id !== timerId).map((timer) => {
+                return Object.assign({}, timer, {
+                    numberOfTimers: timer.numberOfTimers - 1,
+                });
+            }),
         });
     };
     startTimer = (timerId) => {
@@ -88,7 +116,48 @@ class TimersDashboard extends React.Component {
             }),
         });
     };
+    moveTimerUp = (timerId, timerPosition) => {
+        this.setState({
+            timers: [...this.state.timers].map((timer) => {
+                if (timer.id === timerId && timerPosition > 0) {
+                    return Object.assign({}, timer, {
+                        position: timer.position - 1,
+                    });
+                }
+                else if (timer.id !== timerId && timer.position === timerPosition - 1) {
+                    return Object.assign({}, timer, {
+                        position: timer.position + 1,
+                    });
+                }
+                else {
+                    return timer;
+                }
+            }),
+        });
+    };
+    moveTimerDown = (timerId, timerPosition) => {
+        this.setState({
+            timers: [...this.state.timers].map((timer) => {
+                if (timer.id === timerId && timerPosition < this.state.timers.length - 1) {
+                    return Object.assign({}, timer, {
+                        position: timer.position + 1,
+                    });
+                }
+                else if (timer.id !== timerId && timer.position === timerPosition + 1) {
+                    return Object.assign({}, timer, {
+                        position: timer.position - 1,
+                    });
+                }
+                else {
+                    return timer;
+                }
+            }),
+        });
+    };
     render () {
+        const timers = this.state.timers.sort((a, b) => (
+            a.position - b.position
+        ));
         return (
             <div className="ui three column centered grid">
                 <div className="column">
@@ -98,6 +167,8 @@ class TimersDashboard extends React.Component {
                         onTrashClick={ this.handleTrashClick }
                         onStartClick={ this.handleStartClick }
                         onStopClick={ this.handleStopClick }
+                        onUpClick={ this.handleUpClick }
+                        onDownClick={ this.handleDownClick }
                     />
                     <ToggleableTimerForm
                         onFormSubmit={ this.handleCreateFormSubmit }
@@ -117,11 +188,15 @@ class EditableTimerList extends React.Component {
                 title={ timer.title }
                 project={ timer.project }
                 elapsed={ timer.elapsed }
+                position={ timer.position }
+                numberOfTimers={ timer.numberOfTimers }
                 runningSince={ timer.runningSince }
                 onFormSubmit={ this.props.onFormSubmit }
                 onTrashClick={ this.props.onTrashClick }
                 onStartClick={ this.props.onStartClick }
                 onStopClick={ this.props.onStopClick }
+                onUpClick={ this.props.onUpClick }
+                onDownClick={ this.props.onDownClick }
             />
         ));
         return (
@@ -171,11 +246,15 @@ class EditableTimer extends React.Component {
                     title={ this.props.title }
                     project={ this.props.project }
                     elapsed={ this.props.elapsed }
+                    position={ this.props.position }
+                    numberOfTimers={ this.props.numberOfTimers }
                     runningSince={ this.props.runningSince }
                     onEditClick={ this.handleEditClick }
                     onTrashClick={ this.props.onTrashClick }
                     onStartClick={ this.props.onStartClick }
                     onStopClick={ this.props.onStopClick }
+                    onUpClick={ this.props.onUpClick }
+                    onDownClick={ this.props.onDownClick}
                 />
             );
         }
@@ -211,7 +290,7 @@ class TimerForm extends React.Component {
                             <input type="text" value={ this.state.title } onChange={ this.handleTitleChange } />
                         </div>
                         <div className="field">
-                            <label>Description</label>
+                            <label>Project</label>
                             <input type="text" value={ this.state.project } onChange={ this.handleProjectChange } />
                         </div>
                         <div className="ui two bottom attached buttons">
@@ -278,7 +357,13 @@ class Timer extends React.Component {
         this.props.onStopClick(this.props.id);
     };
     handleTrashClick = () => {
-        this.props.onTrashClick(this.props.id);  
+        this.props.onTrashClick(this.props.id, this.props.position);  
+    };
+    handleUpClick = () => {
+        this.props.onUpClick(this.props.id, this.props.position);
+    };
+    handleDownClick = () => {
+        this.props.onDownClick(this.props.id, this.props.position);
     };
     render () {
         const elapsedString = helpers.renderElapsedString(
@@ -305,6 +390,16 @@ class Timer extends React.Component {
                         <span className="right floated trash icon" onClick={ this.handleTrashClick }>
                             <i className="trash icon" />
                         </span>
+                        { this.props.position !== 0 &&
+                            <span className="left floated up icon" onClick={ this.handleUpClick }>
+                                <i className="arrow circle up icon" />
+                            </span>
+                        }
+                        { this.props.position !== this.props.numberOfTimers &&
+                            <span className="left floated down icon" onClick={this.handleDownClick }>
+                                <i className="arrow circle down icon" />
+                            </span>
+                        }
                     </div>
                 </div>
                 <TimerActionButton

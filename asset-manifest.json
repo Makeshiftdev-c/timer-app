@@ -1,23 +1,23 @@
 {
   "files": {
     "main.css": "/timer-app/static/css/main.1bc6c8bd.chunk.css",
-    "main.js": "/timer-app/static/js/main.449281f1.chunk.js",
-    "main.js.map": "/timer-app/static/js/main.449281f1.chunk.js.map",
+    "main.js": "/timer-app/static/js/main.5f5ece63.chunk.js",
+    "main.js.map": "/timer-app/static/js/main.5f5ece63.chunk.js.map",
     "runtime-main.js": "/timer-app/static/js/runtime-main.2c734e5b.js",
     "runtime-main.js.map": "/timer-app/static/js/runtime-main.2c734e5b.js.map",
-    "static/js/2.d04ef3b4.chunk.js": "/timer-app/static/js/2.d04ef3b4.chunk.js",
-    "static/js/2.d04ef3b4.chunk.js.map": "/timer-app/static/js/2.d04ef3b4.chunk.js.map",
+    "static/js/2.314ff70b.chunk.js": "/timer-app/static/js/2.314ff70b.chunk.js",
+    "static/js/2.314ff70b.chunk.js.map": "/timer-app/static/js/2.314ff70b.chunk.js.map",
     "index.html": "/timer-app/index.html",
-    "precache-manifest.2ab8dc053402233d70ae062b4721793c.js": "/timer-app/precache-manifest.2ab8dc053402233d70ae062b4721793c.js",
+    "precache-manifest.452ffbb901967033a7560477da9ba2c3.js": "/timer-app/precache-manifest.452ffbb901967033a7560477da9ba2c3.js",
     "service-worker.js": "/timer-app/service-worker.js",
     "static/css/main.1bc6c8bd.chunk.css.map": "/timer-app/static/css/main.1bc6c8bd.chunk.css.map",
-    "static/js/2.d04ef3b4.chunk.js.LICENSE.txt": "/timer-app/static/js/2.d04ef3b4.chunk.js.LICENSE.txt",
+    "static/js/2.314ff70b.chunk.js.LICENSE.txt": "/timer-app/static/js/2.314ff70b.chunk.js.LICENSE.txt",
     "static/media/index.css": "/timer-app/static/media/back.7b9fcaea.jpg"
   },
   "entrypoints": [
     "static/js/runtime-main.2c734e5b.js",
-    "static/js/2.d04ef3b4.chunk.js",
+    "static/js/2.314ff70b.chunk.js",
     "static/css/main.1bc6c8bd.chunk.css",
-    "static/js/main.449281f1.chunk.js"
+    "static/js/main.5f5ece63.chunk.js"
   ]
 }

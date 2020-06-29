@@ -2,6 +2,12 @@ import React from 'react';
 import './App.css';
 import helpers from './helpers.js';
 import uuid from 'uuid';
+import UIfx from 'uifx';
+import startAudio from './my-sounds/pauseon.mp3';
+import stopAudio from './my-sounds/pauseoff.mp3';
+
+const start = new UIfx(startAudio);
+const stop = new UIfx(stopAudio);
 
 class TimersDashboard extends React.Component {
     state = {
@@ -351,9 +357,11 @@ class Timer extends React.Component {
         clearInterval(this.forceUpdateInterval);
     }
     handleStartClick = () => {
+        start.play();
         this.props.onStartClick(this.props.id);
     };
     handleStopClick = () => {
+        stop.play();
         this.props.onStopClick(this.props.id);
     };
     handleTrashClick = () => {

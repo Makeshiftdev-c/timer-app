@@ -393,19 +393,19 @@ class Timer extends React.Component {
                     </div>
                     <div className="extra content">
                         <span className="right floated edit icon" onClick={ this.props.onEditClick }>
-                            <i className="edit icon" />
+                            <i className="large edit icon" />
                         </span>
                         <span className="right floated trash icon" onClick={ this.handleTrashClick }>
-                            <i className="trash icon" />
+                            <i className="large trash icon" />
                         </span>
                         { this.props.position !== 0 &&
                             <span className="left floated up icon" onClick={ this.handleUpClick }>
-                                <i className="arrow circle up icon" />
+                                <i className="large arrow circle up icon" />
                             </span>
                         }
                         { this.props.position !== this.props.numberOfTimers &&
                             <span className="left floated down icon" onClick={this.handleDownClick }>
-                                <i className="arrow circle down icon" />
+                                <i className="large arrow circle down icon" />
                             </span>
                         }
                     </div>
